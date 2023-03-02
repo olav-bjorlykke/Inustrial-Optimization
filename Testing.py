@@ -1,3 +1,4 @@
+
 import gurobipy as gp
 from gurobipy import GRB
 
@@ -70,16 +71,10 @@ m.ModelSense = GRB.MINIMIZE
 x = m.addVars(rNurses, rShifts, rDays, vtype="B", name="x")
 y = m.addVars(rShifts, rDays, vtype="B", name="y")
 
-
-
-
-#Adding Constraints:
-
 #Max one shift per day constraint:
 for n in rNurses:
-    for d in rDays:
+    for d in rShifts:
         m.addConstr(gp.quicksum(x[n,s,d] for s in rShifts) <= 1)
-
 
 #Atleast 11 hours of rest constraint:
 for d in rDays[1:]:
@@ -87,35 +82,12 @@ for d in rDays[1:]:
         m.addConstr(x[n,0,d] + x[n,1,d-1] +x[n,2,d-1] <= 1)
         m.addConstr(x[n, 1, d - 1] + x[n, 0, d] + x[n, 2, d - 1]  <= 1)
 
-#Both Days or none of the days in a weekend off
-for n in rNurses:
-    m.addConstr(gp.quicksum(x[n,s,0]for s in rShifts) == gp.quicksum(x[n,s,1]for s in rShifts))
-    m.addConstr(gp.quicksum(x[n, s, 7] for s in rShifts) == gp.quicksum(x[n, s, 8] for s in rShifts))
-
-#Every other weekend off
-for n in rNurses:
-    m.addConstr(gp.quicksum(x[n,s,0] + x[n,s,7] for s in rShifts) <= 1)
-
-#Work atmost 6 consecutive days:
-for n in rNurses:
-    for d_num in range(len(rDays[5:9])):
-        m.addConstr(gp.quicksum(x[n,s,d] for s in rShifts for d in rDays[d_num:d_num + 5]) <= 6)
-    #TODO: Doublecheck that this is the correct iteration for d
-
-#Work atmost 4 consecutive Night shifts:
-for n in rNurses:
-    for d_num in range(len(Days)-3):
-        m.addConstr(gp.quicksum(x[n,s,d] for s in rShifts for d in rDays[d_num:d_num + 3]) <= 4)
-    # TODO: Doublecheck that this is the correct iteration for d
-
 
 #Each shift has enough Personnel
 for d in rDays:
     for s in rShifts:
         print("Day",d, "Shift", d, "req:", shiftStaffingRequirements[Days[d]][Shifts[s]])
         m.addConstr(gp.quicksum(x[n, s, d] for n in rNurses) + y[s, d] >= shiftStaffingRequirements[Days[d]][Shifts[s]])
-
-#TODO: Add symmetry breaking constraints
 
 #Create the objective function:
 #TODO: Add penalties and hours constraints
@@ -126,24 +98,3 @@ m.setObjective(
 
 
 m.optimize()
-
-print('SOLUTION:')
-
-for d in rDays:
-    print(f"Day {d}")
-    for s in rShifts:
-        print(f"Shift{s + 1}:")
-        if y[s, d].X > 0:
-            print(f"    Substitute")
-        for n in rNurses:
-            if x[n,s,d].X > 0:
-                print(f"    Nurse {n + 1}")
-
-
-
-
-
-
-
-
-
