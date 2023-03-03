@@ -1,0 +1,187 @@
+Optimal solution found (tolerance 1.00e-04)
+Best objective 8.060000000000e+04, best bound 8.060000000000e+04, gap 0.0000%
+SOLUTION:
+Day 1
+Shift1:
+    Substitute
+    Nurse 1
+Shift2:
+    Nurse 4
+    Nurse 9
+Shift3:
+    Nurse 3
+    Nurse 6
+Day 2
+Shift1:
+    Substitute
+    Nurse 1
+Shift2:
+    Nurse 4
+    Nurse 9
+Shift3:
+    Nurse 3
+    Nurse 6
+Day 3
+Shift1:
+    Nurse 1
+    Nurse 2
+    Nurse 7
+Shift2:
+    Nurse 5
+    Nurse 9
+Shift3:
+    Nurse 4
+    Nurse 8
+Day 4
+Shift1:
+    Nurse 2
+    Nurse 3
+    Nurse 6
+Shift2:
+    Nurse 1
+    Nurse 5
+Shift3:
+    Nurse 4
+    Nurse 9
+Day 5
+Shift1:
+    Nurse 3
+    Nurse 7
+    Nurse 8
+Shift2:
+    Nurse 2
+    Nurse 6
+Shift3:
+    Nurse 1
+    Nurse 9
+Day 6
+Shift1:
+    Nurse 3
+    Nurse 5
+Shift2:
+    Nurse 2
+    Nurse 4
+Shift3:
+    Nurse 6
+    Nurse 7
+Day 7
+Shift1:
+    Nurse 3
+    Nurse 8
+    Nurse 9
+Shift2:
+    Nurse 1
+    Nurse 4
+Shift3:
+    Nurse 5
+    Nurse 6
+Day 8
+Shift1:
+    Substitute
+    Nurse 8
+Shift2:
+    Substitute
+    Nurse 2
+Shift3:
+    Nurse 5
+    Nurse 7
+Day 9
+Shift1:
+    Substitute
+    Nurse 8
+Shift2:
+    Substitute
+    Nurse 2
+Shift3:
+    Nurse 5
+    Nurse 7
+Nurse1 Average per week: 37.333333333333336 Schedule:
+1.0 0.0 0.0
+1.0 0.0 0.0
+1.0 0.0 0.0
+0.0 1.0 0.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+0.0 1.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+Nurse2 Average per week: 37.333333333333336 Schedule:
+0.0 0.0 0.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+1.0 0.0 0.0
+0.0 1.0 0.0
+0.0 1.0 0.0
+0.0 0.0 0.0
+0.0 1.0 0.0
+0.0 1.0 0.0
+Nurse3 Average per week: 37.333333333333336 Schedule:
+0.0 0.0 1.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+1.0 0.0 0.0
+1.0 0.0 0.0
+1.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+Nurse4 Average per week: 37.333333333333336 Schedule:
+0.0 1.0 0.0
+0.0 1.0 0.0
+0.0 0.0 1.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+0.0 1.0 0.0
+0.0 1.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+Nurse5 Average per week: 37.333333333333336 Schedule:
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 1.0 0.0
+0.0 1.0 0.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 0.0 1.0
+0.0 0.0 1.0
+0.0 0.0 1.0
+Nurse6 Average per week: 37.333333333333336 Schedule:
+0.0 0.0 1.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 1.0 0.0
+0.0 0.0 1.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+0.0 0.0 0.0
+Nurse7 Average per week: 31.11111111111111 Schedule:
+0.0 0.0 0.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+0.0 0.0 1.0
+0.0 0.0 1.0
+Nurse8 Average per week: 31.11111111111111 Schedule:
+0.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+1.0 0.0 0.0
+1.0 0.0 0.0
+Nurse9 Average per week: 37.333333333333336 Schedule:
+0.0 1.0 0.0
+0.0 1.0 0.0
+0.0 1.0 0.0
+0.0 0.0 1.0
+0.0 0.0 1.0
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 0.0 0.0
+0.0 0.0 0.0
