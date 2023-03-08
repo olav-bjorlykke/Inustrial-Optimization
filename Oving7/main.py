@@ -97,7 +97,6 @@ for n in rNurses:
 for n in rNurses:
     for d_num in rDays:
         m.addConstr(gp.quicksum(x[n,s,d] for s in rShifts for d in rDays[d_num:d_num + 6]) <= 6)
-    #TODO:Doublecheck that this is the correct iteration for d
 
 #Work atmost 4 consecutive Night shifts:
 for n in rNurses:
