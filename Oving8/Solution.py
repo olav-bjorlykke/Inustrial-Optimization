@@ -80,16 +80,39 @@ class Solution:
 		self.cog = gravity_this
 		self.total_weight_containers = sum_container_weight
 
-	def print_solution(self):
+	def print_solution(self, containers):
 		print("Current solution:")
 
 		for bay in range(self.n_bays):
 			for stack in range(self.n_stacks):
 				for tier in range(self.n_tiers):
-					print(f"Bay: {bay}, stack: {stack}, tier: {tier}, container: {self.flow_x[bay][stack][tier]}")
+					print(f"Bay: {bay}, stack: {stack}, tier: {tier}, container: {self.flow_x[bay][stack][tier]} , Weight:{containers[self.flow_x[bay][stack][tier]].weight}" )
 
 	def construction_improved(self, containers):
-		print("Oppgave 1")
+		"""
+		Denne metoden implementerer en konstruksjonsheuristikk. Den sorterer containere fra høyest til lavest vekt.
+		For deretter å plassere dem ut i at mønster som reverseres på annethvert dekk.
+
+		Heuristikken er svakere dersom det er et odde antall dekk, enn dersom det er et partall.
+
+		:param containers:
+		:return:
+		"""
+
+		#Sorting the containers based on weight
+		container_list = sorted(containers, key = lambda container: container.weight)
+
+		i = 0
+		for bay in range(self.n_bays):
+			for stack in range(self.n_stacks):
+				for tier in range(self.n_tiers):
+					self.flow_x[bay][stack][tier] = container_list[i].container_id
+					i += 1
+
+
+
+
+
 
 	def local_search_two_swap(self, containers):
 		print("Oppgave 2a")

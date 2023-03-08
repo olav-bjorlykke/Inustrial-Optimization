@@ -4,7 +4,7 @@ from Vessel import Vessel
 
 if __name__ == '__main__':
 	# Set data file
-	filename = "instance1.txt"
+	filename = "instance2.txt"
 
 	# Read from data file
 	with open(filename, "r") as datafile:
@@ -30,9 +30,19 @@ if __name__ == '__main__':
 
 	# Construct an initial solution
 	initial_solution.construct()
+	print("Original Heuristic")
+
+	# Evaluate the initial solution
+	initial_solution.calculate_objective(containers)
+	print("Solution:", initial_solution.objective, "COG", initial_solution.cog[0], initial_solution.cog[1])
+
+
 
 	# OPPGAVE 1
 	initial_solution.construction_improved(containers)
+	initial_solution.calculate_objective(containers)
+	print("Improved", initial_solution.objective, "COG", initial_solution.cog[0], initial_solution.cog[1])
+
 	# Implementer denne i Solution.py
 
 	# Sortere containere etter vekt slik:
@@ -41,7 +51,7 @@ if __name__ == '__main__':
 	###########################################################################
 
 	# Print the initial solution to command window
-	initial_solution.print_solution()
+	#initial_solution.print_solution()
 
 	# Evaluate the initial solution
 	initial_solution.calculate_objective(containers)
