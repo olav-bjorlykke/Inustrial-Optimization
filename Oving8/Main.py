@@ -4,7 +4,7 @@ from Vessel import Vessel
 
 if __name__ == '__main__':
 	# Set data file
-	filename = "instance2.txt"
+	filename = "instance1.txt"
 
 	# Read from data file
 	with open(filename, "r") as datafile:
@@ -42,6 +42,7 @@ if __name__ == '__main__':
 	initial_solution.construction_improved(containers)
 	initial_solution.calculate_objective(containers)
 	print("Improved", initial_solution.objective, "COG", initial_solution.cog[0], initial_solution.cog[1])
+	initial_solution.pretty_print_solution(containers)
 
 	# Implementer denne i Solution.py
 

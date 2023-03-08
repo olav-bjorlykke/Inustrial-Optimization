@@ -88,6 +88,23 @@ class Solution:
 				for tier in range(self.n_tiers):
 					print(f"Bay: {bay}, stack: {stack}, tier: {tier}, container: {self.flow_x[bay][stack][tier]} , Weight:{containers[self.flow_x[bay][stack][tier]].weight}" )
 
+	def pretty_print_solution(self, containers):
+		tiers = []
+		for tier in range(self.n_tiers):
+			stacks = []
+			for stack in range(self.n_stacks):
+				bays = []
+				for bay in range(self.n_bays):
+					bays.append([self.flow_x[bay][stack][tier], containers[self.flow_x[bay][stack][tier]].weight])
+				stacks.append(bays)
+			tiers.append(stacks)
+
+		for tier in tiers:
+			for stack in tier:
+				print(stack)
+
+
+
 	def construction_improved(self, containers):
 		"""
 		Denne metoden implementerer en konstruksjonsheuristikk. Den sorterer containere fra høyest til lavest vekt.
