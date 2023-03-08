@@ -52,6 +52,7 @@ class Solution:
 
 		# Her vil vi at cog (centre of gravity) skal ligge
 		gravity_goal = [self.n_bays/2.0, self.n_stacks/2.0]
+		print("grav goal",gravity_goal)
 
 		# Lager en liste som brukes til å regne ut den aktuelle cog-en
 		gravity_this = [0.0, 0.0]
@@ -68,8 +69,8 @@ class Solution:
 					sum_tier += container_weight
 					sum_container_weight += container_weight
 
-				gravity_this[0] += (bay - 0.5) * sum_tier
-				gravity_this[1] += (stack - 0.5) * sum_tier
+				gravity_this[0] += (bay + 0.5) * sum_tier
+				gravity_this[1] += (stack + 0.5) * sum_tier
 
 		gravity_this[0] /= sum_container_weight
 		gravity_this[1] /= sum_container_weight
