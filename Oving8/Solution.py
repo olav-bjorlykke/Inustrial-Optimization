@@ -147,9 +147,9 @@ class Solution:
 		test_ship = self.copy()
 		objective = test_ship.objective
 		i = 0 
-		while True:
+		while i < 100:
+			#Array for storing all improved solutions
 			solution_array = []
-
 
 			#iterating through all containers
 			for tier in range(test_ship.n_tiers):
@@ -180,20 +180,75 @@ class Solution:
 			else:
 				break
 
+
 		#Copying the best solution to this object
 		for bay in range(self.n_bays):
 			for stack in range(self.n_stacks):
 				for tier in range(self.n_tiers):
 					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
 
-
-
-
-
-
-
 	def local_search_three_swap(self, containers):
-		print("Oppgave 2b")
+		test_ship = self.copy()
+		objective = test_ship.objective
+		i = 0
+		while i < 100:
+			# Array for storing all improved solutions
+			solution_array = []
+
+			# iterating through all containers
+			for tier in range(test_ship.n_tiers):
+				for stack in range(test_ship.n_stacks):
+					for bay in range(test_ship.n_bays):
+
+						# Iterating through all other containers that have not yet been tried
+						for tier_2 in range(tier, test_ship.n_tiers):
+							for stack_2 in range(stack, test_ship.n_stacks):
+								for bay_2 in range(bay, test_ship.n_bays):
+
+									#Iterating through the remaining containers:
+									for tier_3 in range(tier_2, test_ship.n_tiers):
+										for stack_3 in range(stack_2, test_ship.n_stacks):
+											for bay_3 in range(bay_2, test_ship.n_bays):
+												test_ship_2 = test_ship.copy()
+												test_ship_3 = test_ship.copy()
+
+												# Swapping Three containers: 2 = 1 , 3 = 2 , 1 = 3
+												test_ship_2.flow_x[bay_2][stack_2][tier_2] = test_ship.flow_x[bay][stack][tier]
+												test_ship_2.flow_x[bay_3][stack_3][tier_3] = test_ship.flow_x[bay_2][stack_2][tier_2]
+												test_ship_2.flow_x[bay][stack][tier] = test_ship.flow_x[bay_3][stack_3][tier_3]
+
+												# Swapping Three containers: 2 = 3 , 3 = 1 , 1 = 2
+												test_ship_3.flow_x[bay_2][stack_2][tier_2] = test_ship.flow_x[bay_3][stack_3][tier_3]
+												test_ship_3.flow_x[bay_3][stack_3][tier_3] = test_ship.flow_x[bay][stack][tier]
+												test_ship_3.flow_x[bay][stack][tier] = test_ship.flow_x[bay_2][stack_2][tier_2]
+
+
+												# Calculating objective of the two solutions
+												test_ship_2.calculate_objective(containers)
+												test_ship_3.calculate_objective(containers)
+
+												if test_ship_2.objective < test_ship.objective:
+													solution_array.append(test_ship_2.copy())
+
+												if test_ship_3.objective < test_ship.objective:
+													solution_array.append(test_ship_3.copy())
+
+
+			if solution_array:
+				#Fetching the best from the newly discovered improved solutions and setting that to be the new_best solution:
+				new_best = max(solution_array , key=lambda solution: solution.objective)
+				test_ship = new_best.copy()
+			else:
+				break
+			i += 1
+
+		#Copying the best solution to this object
+		for bay in range(self.n_bays):
+			for stack in range(self.n_stacks):
+				for tier in range(self.n_tiers):
+					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
 
 	def tabu_search_heuristic(self, containers, n_iterations):
-		print("Oppgave 3")
+		pass
+
+

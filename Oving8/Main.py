@@ -60,22 +60,25 @@ if __name__ == '__main__':
 
 	# Improvement phase
 
-	# Create a copy of the initial solution
-	new_solution = initial_solution.copy()
+	# Create 3 copies of the initial solution
+	new_solution2A = initial_solution.copy()
+	new_solution2B = initial_solution.copy()
+	new_solution3 = initial_solution.copy()
 
 	# OPPGAVE 2A
-	new_solution.local_search_two_swap(containers)
-	new_solution.calculate_objective(containers)
+	new_solution2A.local_search_two_swap(containers)
+	new_solution2A.calculate_objective(containers)
 	# Implementer denne i Solution.py
-	print("Solution 2A:",new_solution.objective, "COG", new_solution.cog[0], new_solution.cog[1])
+	print("Solution 2A:", new_solution2A.objective, "COG", new_solution2A.cog[0], new_solution2A.cog[1])
 
 	# OPPGAVE 2B
-	new_solution.local_search_three_swap(containers)
+	new_solution2B.local_search_three_swap(containers)
+	new_solution2B.calculate_objective(containers)
 	# Implementer denne i Solution.py
-	print(new_solution.objective)
+	print("Solution 2B", new_solution2B.objective, "COG", new_solution2B.cog[0], new_solution2B.cog[1])
 
 	# OPPGAVE 3
 	n_iterations = 100
-	new_solution.tabu_search_heuristic(containers, n_iterations)
+	new_solution2A.tabu_search_heuristic(containers, n_iterations)
 	# Implementer denne i Solution.py
-	print(new_solution.objective)
+	print(new_solution3.objective)
