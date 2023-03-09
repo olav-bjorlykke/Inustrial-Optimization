@@ -1,3 +1,5 @@
+import random
+import random as rd
 class Solution:
 
 	def __init__(self, n_bays, n_stacks, n_tiers):
@@ -52,7 +54,7 @@ class Solution:
 
 		# Her vil vi at cog (centre of gravity) skal ligge
 		gravity_goal = [self.n_bays/2.0, self.n_stacks/2.0]
-		print("grav goal",gravity_goal)
+
 
 		# Lager en liste som brukes til å regne ut den aktuelle cog-en
 		gravity_this = [0.0, 0.0]
@@ -105,7 +107,6 @@ class Solution:
 				print(stack)
 
 
-
 	def construction_improved(self, containers):
 		"""
 		Denne metoden implementerer en konstruksjonsheuristikk. Den sorterer containere fra høyest til lavest vekt.
@@ -118,22 +119,78 @@ class Solution:
 		"""
 
 		#Sorting the containers based on weight
-		container_list = sorted(containers, key = lambda container: container.weight)
+		container_list = sorted(containers, key = lambda container: container.weight, reverse=True)
 
 		i = 0
-		for bay in range(self.n_bays):
-			for stack in range(self.n_stacks):
-				for tier in range(self.n_tiers):
-					self.flow_x[bay][stack][tier] = container_list[i].container_id
-					i += 1
-
-
-
-
+		alter = True
+		for tier in range(self.n_tiers):
+			stack_list = [stack for stack in range(self.n_stacks) for _ in range(self.n_bays)]
+			while stack_list:
+				if self.n_bays % 2 == 0:
+					for bay in reversed(range(0, int(self.n_bays / 2))):
+						if alter:
+							self.flow_x[bay][stack_list.pop(random.randint(0,len(stack_list)-1))][tier] = container_list[i].container_id
+							i += 1
+							self.flow_x[self.n_bays - bay - 1][stack_list.pop(random.randint(0,len(stack_list)-1))][tier] = container_list[i].container_id
+							i += 1
+						else:
+							self.flow_x[self.n_bays - bay - 1][stack_list.pop(random.randint(0,len(stack_list)-1))][tier] = container_list[i].container_id
+							i += 1
+							self.flow_x[bay][stack_list.pop(random.randint(0,len(stack_list)-1))][tier] = container_list[i].container_id
+							i += 1
+						alter = not alter
+				else: #TODO: Add functionality for handling odd number of bays
+					pass
 
 
 	def local_search_two_swap(self, containers):
-		print("Oppgave 2a")
+		test_ship = self.copy()
+		objective = test_ship.objective
+		i = 0 
+		while True:
+			solution_array = []
+
+
+			#iterating through all containers
+			for tier in range(test_ship.n_tiers):
+				for stack in range(test_ship.n_stacks):
+					for bay in range(test_ship.n_bays):
+
+						#Iterating thorugh all other containers that have not yet been tried
+						for tier_2 in range(tier,test_ship.n_tiers):
+							for stack_2 in range(stack,test_ship.n_stacks):
+								for bay_2 in range(bay,test_ship.n_bays):
+									#Making a copy of the vessel to test the solution
+									test_ship_2 = test_ship.copy()
+
+									#Swapping Two containers
+									test_ship_2.flow_x[bay_2][stack_2][tier_2] = test_ship.flow_x[bay][stack][tier]
+									test_ship_2.flow_x[bay][stack][tier] = test_ship.flow_x[bay_2][stack_2][tier_2]
+
+									#Calculating objective of the two solutions
+									test_ship_2.calculate_objective(containers)
+
+									if test_ship_2.objective < test_ship.objective:
+										solution_array.append(test_ship_2.copy())
+
+			if solution_array:
+				#Fetching the best from the newly discovered improved solutions and setting that to be the new_best solution:
+				new_best = max(solution_array , key=lambda solution: solution.objective)
+				test_ship = new_best.copy()
+			else:
+				break
+
+		#Copying the best solution to this object
+		for bay in range(self.n_bays):
+			for stack in range(self.n_stacks):
+				for tier in range(self.n_tiers):
+					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
+
+
+
+
+
+
 
 	def local_search_three_swap(self, containers):
 		print("Oppgave 2b")

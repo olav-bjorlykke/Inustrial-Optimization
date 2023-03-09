@@ -1,6 +1,8 @@
 from Container import Container
 from Solution import Solution
 from Vessel import Vessel
+import random
+
 
 if __name__ == '__main__':
 	# Set data file
@@ -25,6 +27,7 @@ if __name__ == '__main__':
 	# containers is an array of Container objects
 	# vessel is a Vessel object
 
+
 	# Create a Solution object for the initial solution
 	initial_solution = Solution(vessel.n_bays, vessel.n_stacks, vessel.n_tiers)
 
@@ -39,10 +42,10 @@ if __name__ == '__main__':
 
 
 	# OPPGAVE 1
-	initial_solution.construction_improved(containers)
-	initial_solution.calculate_objective(containers)
-	print("Improved", initial_solution.objective, "COG", initial_solution.cog[0], initial_solution.cog[1])
-	initial_solution.pretty_print_solution(containers)
+	#initial_solution.construction_improved(containers)
+	#initial_solution.calculate_objective(containers)
+	#print("Improved", initial_solution.objective, "COG", initial_solution.cog[0], initial_solution.cog[1])
+	#initial_solution.pretty_print_solution(containers)
 
 	# Implementer denne i Solution.py
 
@@ -54,9 +57,6 @@ if __name__ == '__main__':
 	# Print the initial solution to command window
 	#initial_solution.print_solution()
 
-	# Evaluate the initial solution
-	initial_solution.calculate_objective(containers)
-	print(initial_solution.objective)
 
 	# Improvement phase
 
@@ -65,8 +65,9 @@ if __name__ == '__main__':
 
 	# OPPGAVE 2A
 	new_solution.local_search_two_swap(containers)
+	new_solution.calculate_objective(containers)
 	# Implementer denne i Solution.py
-	print(new_solution.objective)
+	print("Solution 2A:",new_solution.objective, "COG", new_solution.cog[0], new_solution.cog[1])
 
 	# OPPGAVE 2B
 	new_solution.local_search_three_swap(containers)
