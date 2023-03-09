@@ -39,23 +39,12 @@ if __name__ == '__main__':
 	initial_solution.calculate_objective(containers)
 	print("Solution:", initial_solution.objective, "COG", initial_solution.cog[0], initial_solution.cog[1])
 
-
-
 	# OPPGAVE 1
-	#initial_solution.construction_improved(containers)
-	#initial_solution.calculate_objective(containers)
-	#print("Improved", initial_solution.objective, "COG", initial_solution.cog[0], initial_solution.cog[1])
-	#initial_solution.pretty_print_solution(containers)
-
-	# Implementer denne i Solution.py
-
-	# Sortere containere etter vekt slik:
-	# containers_descending = Container.sort_array_weight_descending(containers)
-	# containers_ascending = Container.sort_array_weight_ascending(containers)
-	###########################################################################
-
-	# Print the initial solution to command window
-	#initial_solution.print_solution()
+	new_solution1 = initial_solution.copy()
+	new_solution1.construction_improved(containers)
+	new_solution1.calculate_objective(containers)
+	print("Improved", new_solution1.objective, "COG", new_solution1.cog[0], new_solution1.cog[1])
+	#new_solution1.pretty_print_solution(containers)
 
 
 	# Improvement phase
@@ -74,11 +63,11 @@ if __name__ == '__main__':
 	# OPPGAVE 2B
 	new_solution2B.local_search_three_swap(containers)
 	new_solution2B.calculate_objective(containers)
-	# Implementer denne i Solution.py
 	print("Solution 2B", new_solution2B.objective, "COG", new_solution2B.cog[0], new_solution2B.cog[1])
 
 	# OPPGAVE 3
-	n_iterations = 100
-	new_solution2A.tabu_search_heuristic(containers, n_iterations)
+	n_iterations = 200
+	new_solution3.tabu_search_heuristic(containers, n_iterations)
+	new_solution3.calculate_objective(containers)
 	# Implementer denne i Solution.py
-	print(new_solution3.objective)
+	print("Solution 3", new_solution3.objective, "COG", new_solution3.cog[0], new_solution3.cog[1])

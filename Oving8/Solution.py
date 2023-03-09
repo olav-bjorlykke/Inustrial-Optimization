@@ -147,7 +147,7 @@ class Solution:
 		test_ship = self.copy()
 		objective = test_ship.objective
 		i = 0 
-		while i < 100:
+		while True:
 			#Array for storing all improved solutions
 			solution_array = []
 
@@ -249,6 +249,56 @@ class Solution:
 					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
 
 	def tabu_search_heuristic(self, containers, n_iterations):
-		pass
+		test_ship = self.copy()
+		objective = test_ship.objective
+		i = 0
+		tabu_swaps = []
+		while i < n_iterations:
+			i += 1
+			# Array for storing all improved solutions
+			solution_array = []
+
+			# iterating through all containers
+			for tier in range(test_ship.n_tiers):
+				for stack in range(test_ship.n_stacks):
+					for bay in range(test_ship.n_bays):
+
+						# Iterating thorugh all other containers that have not yet been tried
+						for tier_2 in range(tier, test_ship.n_tiers):
+							for stack_2 in range(stack, test_ship.n_stacks):
+								for bay_2 in range(bay, test_ship.n_bays):
+									if [[bay, stack, tier], [bay_2, stack_2, tier_2]] in tabu_swaps:
+										tabu_swaps.pop(0)
+
+
+									else:
+										# Making a copy of the vessel to test the solution
+										test_ship_2 = test_ship.copy()
+
+										# Swapping Two containers
+										test_ship_2.flow_x[bay_2][stack_2][tier_2] = test_ship.flow_x[bay][stack][tier]
+										test_ship_2.flow_x[bay][stack][tier] = test_ship.flow_x[bay_2][stack_2][tier_2]
+
+										# Calculating objective of the two solutions
+										test_ship_2.calculate_objective(containers)
+
+										if test_ship_2.objective < test_ship.objective:
+											solution_array.append(
+												[test_ship_2.copy(), [bay, stack, tier], [bay_2, stack_2, tier_2]])
+
+
+			if solution_array:
+				# Fetching the best from the newly discovered improved solutions and setting that to be the new_best solution:
+				new_best = max(solution_array, key=lambda solution: solution[0].objective)
+				tabu_swaps.append([new_best[1],new_best[2]])
+				test_ship = new_best[0].copy()
+			else:
+				break
+
+			# Copying the best solution to this object
+		for bay in range(self.n_bays):
+			for stack in range(self.n_stacks):
+				for tier in range(self.n_tiers):
+					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
 
 
