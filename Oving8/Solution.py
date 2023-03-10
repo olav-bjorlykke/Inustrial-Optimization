@@ -145,13 +145,15 @@ class Solution:
 					pass
 
 	def local_search_two_swap(self, containers):
+
 		start_time = time.time()
 
 		test_ship = self.copy()
 		objective = test_ship.objective
 		i = 0 
-		while i < 500:
-			print(i)
+		while True:
+			if i % 100 == 0:
+				print(i)
 			i += 1
 			#Array for storing all improved solutions
 			solution_array = []
@@ -261,7 +263,10 @@ class Solution:
 		objective = test_ship.objective
 		i = 0
 		tabu_swaps = []
-		while i < n_iterations:
+		while True:
+			if i % 100 == 0:
+				print(i)
+
 			i += 1
 			# Array for storing all improved solutions
 			solution_array = []
@@ -278,8 +283,6 @@ class Solution:
 									if [[bay, stack, tier], [bay_2, stack_2, tier_2]] in tabu_swaps:
 										tabu_swaps.pop(0)
 
-									elif tier == tier_2:
-										pass
 
 									else:
 										# Making a copy of the vessel to test the solution
@@ -304,6 +307,7 @@ class Solution:
 				test_ship = new_best[0].copy()
 			else:
 				break
+
 
 			# Copying the best solution to this object
 		for bay in range(self.n_bays):

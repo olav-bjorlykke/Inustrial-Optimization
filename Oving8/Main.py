@@ -6,7 +6,7 @@ import random
 
 if __name__ == '__main__':
 	# Set data file
-	filename = "instance1.txt"
+	filename = "instance3.txt"
 
 	# Read from data file
 	with open(filename, "r") as datafile:
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 	new_solution3 = initial_solution.copy()
 
 	# OPPGAVE 2A
-	new_solution2A.local_search_two_swap(containers)
+	#new_solution2A.local_search_two_swap(containers)
 	new_solution2A.calculate_objective(containers)
 	# Implementer denne i Solution.py
 	print("Solution 2A:", new_solution2A.objective, "COG", new_solution2A.cog[0], new_solution2A.cog[1])
@@ -66,7 +66,7 @@ if __name__ == '__main__':
 	print("Solution 2B", new_solution2B.objective, "COG", new_solution2B.cog[0], new_solution2B.cog[1])
 
 	# OPPGAVE 3
-	n_iterations = 200
+	n_iterations = 1000
 	new_solution3.tabu_search_heuristic(containers, n_iterations)
 	new_solution3.calculate_objective(containers)
 	# Implementer denne i Solution.py
