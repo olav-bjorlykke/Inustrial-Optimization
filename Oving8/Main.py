@@ -6,7 +6,7 @@ import random
 
 if __name__ == '__main__':
 	# Set data file
-	filename = "instance2.txt"
+	filename = "instance1.txt"
 
 	# Read from data file
 	with open(filename, "r") as datafile:

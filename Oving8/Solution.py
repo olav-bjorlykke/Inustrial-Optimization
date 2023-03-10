@@ -1,5 +1,8 @@
 import random
 import random as rd
+import time
+
+
 class Solution:
 
 	def __init__(self, n_bays, n_stacks, n_tiers):
@@ -142,6 +145,8 @@ class Solution:
 					pass
 
 	def local_search_two_swap(self, containers):
+		start_time = time.time()
+
 		test_ship = self.copy()
 		objective = test_ship.objective
 		i = 0 
@@ -186,6 +191,8 @@ class Solution:
 			for stack in range(self.n_stacks):
 				for tier in range(self.n_tiers):
 					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
+
+		print("Runtime of Two-Swap:", time.time() - start_time)
 
 	def local_search_three_swap(self, containers):
 		test_ship = self.copy()
@@ -249,6 +256,7 @@ class Solution:
 					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
 
 	def tabu_search_heuristic(self, containers, n_iterations):
+		start_time = time.time()
 		test_ship = self.copy()
 		objective = test_ship.objective
 		i = 0
@@ -302,5 +310,7 @@ class Solution:
 			for stack in range(self.n_stacks):
 				for tier in range(self.n_tiers):
 					self.flow_x[bay][stack][tier] = test_ship.flow_x[bay][stack][tier]
+
+		print("Runtime of Tabu Search:", time.time() - start_time)
 
 
