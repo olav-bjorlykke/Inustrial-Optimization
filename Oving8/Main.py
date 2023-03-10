@@ -6,7 +6,7 @@ import random
 
 if __name__ == '__main__':
 	# Set data file
-	filename = "instance1.txt"
+	filename = "instance2.txt"
 
 	# Read from data file
 	with open(filename, "r") as datafile:
@@ -61,8 +61,8 @@ if __name__ == '__main__':
 	print("Solution 2A:", new_solution2A.objective, "COG", new_solution2A.cog[0], new_solution2A.cog[1])
 
 	# OPPGAVE 2B
-	new_solution2B.local_search_three_swap(containers)
-	new_solution2B.calculate_objective(containers)
+	#new_solution2B.local_search_three_swap(containers)
+	#new_solution2B.calculate_objective(containers)
 	print("Solution 2B", new_solution2B.objective, "COG", new_solution2B.cog[0], new_solution2B.cog[1])
 
 	# OPPGAVE 3
