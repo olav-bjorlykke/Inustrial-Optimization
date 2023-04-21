@@ -52,6 +52,7 @@ class SubProblem:
         #Preparing the variables for returning
         y_values = [y[i].X for i in range(3)]
         sensitivities = [subproblem.getConstrByName(f"x_{i}").Pi for i in range(len(self.x_values))]
+        objective_value = subproblem.ObjVal
 
-        return y_values,sensitivities
+        return y_values,sensitivities, objective_value
 
