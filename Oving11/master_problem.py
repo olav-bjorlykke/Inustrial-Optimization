@@ -1,29 +1,51 @@
 import gurobipy as gp
 from gurobipy import GRB, Model
 
-class MasterProblem():
-    def __init__(self):
+class MasterProblem:
+    def __init__(self, y_values_1, y_values_2, sensitivities_1, sensitivities_2, prev_x_values):
+        self.y_1 = y_values_1
+        self.y_2 = y_values_2
+        self.lamda = sensitivities_1
+        self.pi = sensitivities_2
+        self.x_prev = prev_x_values
         pass
 
     def solve(self):
         master_problem = Model("Master")
 
-        x = master_problem.addVars(1, 2, 3, 4, vtype=GRB.CONTINUOUS)
+        x = master_problem.addVars(4, vtype=GRB.CONTINUOUS)
         alpha = master_problem.addVar()
 
         master_problem.addConstr(
-            x[1] +x[2] + 3* x[3] +x[4] >= 10,
+            x[0] +x[1] + 3* x[2] +x[3] >= 10,
         )
         master_problem.addConstr(
-            x[1] + 3*x[2] + 5 * x[3] + 6 * x[4] >= 10,
-        )
-        master_problem.addConstr(
-            alpha >= 0,
+            x[0] + 3*x[1] + 5 * x[2] + 6 * x[3] >= 10,
         )
         master_problem.addConstr(
             alpha >= 0,
         )
+
+        for k in range(len(self.y_1)-1):
+            master_problem.addConstr(
+                alpha >=
+                0.5 * (self.y_1[k][0] + 2* self.y_1[k][1] + 4 * self.y_1[k][2])  +
+                0.5 * (self.y_2[k][0] + 2 * self.y_2[k][1] + 4 * self.y_2[k][2]) +
+                gp.quicksum((self.lamda[k][j] + self.pi[k][j])*(x[j] - self.x_prev[k][j]) for j in range(len(self.lamda[k])))
+            )
+
+        objective = x[0] + 4 * x[1] + 2 * x[2] + 5 * x[3] + alpha
+        master_problem.setObjective(objective, GRB.MINIMIZE)
+
+        master_problem.optimize()
+
+        x_values = [x[i].X for i in range(4)]
+        objective_value = master_problem.ObjVal
+
+        return x_values, objective_value
         #TODO: Figure out how to add the benders cuts as constraints
+
+
 
 
 
