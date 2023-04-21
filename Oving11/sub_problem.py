@@ -1,6 +1,9 @@
 import gurobipy as gp
 from gurobipy import GRB, Model
 
+#TODO: Currently the model creates a new instance of the subproblem object for every iteration. Refactor so that we keep the same model but can solve it with new x-values.
+#TODO: Move the passing of the x_vector to the solve() function in the subproblem.
+
 class SubProblem:
     def __init__(self, x_vector, subproblem_number):
         self.x_values = x_vector
@@ -39,12 +42,14 @@ class SubProblem:
                 x[i] == self.x_values[i] , name = f"x_{i}"
             )
 
+        #Declaring the objective function
         objective = 0.5*(y[0] + 2* y[1] + 4* y[2])
         subproblem.setObjective(objective, GRB.MINIMIZE)
 
+        #Solving the model
         subproblem.optimize()
 
-        x_values = [x[i].X for i in range(3)]
+        #Preparing the variables for returning
         y_values = [y[i].X for i in range(3)]
         sensitivities = [subproblem.getConstrByName(f"x_{i}").Pi for i in range(len(self.x_values))]
 
